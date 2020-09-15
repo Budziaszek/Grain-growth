@@ -423,8 +423,6 @@ class Image(threading.Thread):
         self.direction = None
 
         self.grid = []
-        # # TUU
-        # self.has_neighbor = []
         self.saved_grid = None
         self.cells_taken = 0
         self.clean()
@@ -459,8 +457,6 @@ class Image(threading.Thread):
         for c in self.COLORS:
             c[1] = 0
         self.saved_grid = deepcopy(self.grid)
-        # # TUU
-        # self.has_neighbor = deepcopy(self.grid)
 
     def restore(self):
         self.grid = deepcopy(self.saved_grid)
@@ -471,34 +467,6 @@ class Image(threading.Thread):
             self.saved_grid[x][y] = color
         self.grid[x][y] = color
         self.cells_taken += 1
-
-        # # TUUU
-        # if self.conditions == 'periodical':
-        #     if x - 1 < 0:
-        #         x = self.WIDTH - 1
-        #     elif x + 1 >= self.WIDTH:
-        #         x = 0
-        #     if y - 1 < 0:
-        #         y = self.HEIGHT - 1
-        #     elif y + 1 >= self.HEIGHT:
-        #         y = 0
-        # if x + 1 < self.WIDTH:
-        #     self.has_neighbor[x + 1][y] = 1
-        #     if y + 1 < self.HEIGHT:
-        #         self.has_neighbor[x + 1][y + 1] = 1
-        #     if y - 1 >= 0:
-        #         self.has_neighbor[x + 1][y - 1] = 1
-        # else:
-        #     if y + 1 < self.HEIGHT:
-        #         self.has_neighbor[x][y + 1] = 1
-        #     if y - 1 >= 0:
-        #         self.has_neighbor[x][y - 1] = 1
-        # if x - 1 >= 0:
-        #     self.has_neighbor[x - 1][y] = 1
-        #     if y + 1 < self.HEIGHT:
-        #         self.has_neighbor[x - 1][y + 1] = 1
-        #     if y - 1 >= 0:
-        #         self.has_neighbor[x - 1][y - 1] = 1
 
         if self.cells_taken == self.WIDTH * self.HEIGHT:
             self.gui.SetStatusText("The process has been completed")
@@ -615,7 +583,7 @@ class Image(threading.Thread):
         # Modify the grid
         for row in range(self.WIDTH):
             for column in range(self.HEIGHT):
-                if old_grid[row][column] == 0: #and self.has_neighbor[row][column] == 1:
+                if old_grid[row][column] == 0:
                     if i is not None:
                         self.direction = random.randint(0, i)
                     self.check_neighbors_and_actualize(old_grid, row, column)
